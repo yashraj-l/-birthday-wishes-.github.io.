@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Birthday Wish Book</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .book {
+            width: 600px;
+            height: 400px;
+            perspective: 1000px;
+        }
+
+        .book-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+
+        .book.is-flipped .book-inner {
+            transform: rotateY(-180deg);
+        }
+
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            backface-visibility: hidden;
+        }
+
+        .page-front {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-back {
+            padding: 20px;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #ff6f61;
+            margin: 0;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .paragraph {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            text-align: center;
+            color: #333;
+            animation: fadeIn 3s ease-in-out;
+        }
+
+        .flip-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ff6f61;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            animation: fadeIn 4s ease-in-out;
+        }
+
+        .flip-button:hover {
+            background-color: #ff4b4b;
+        }
+
+        .balloons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .balloon {
+            background-color: #ff6f61;
+            width: 50px;
+            height: 70px;
+            border-radius: 50% 50% 50% 50% / 80% 80% 100% 100%;
+            position: relative;
+            margin: 0 10px;
+            animation: float 4s ease-in-out infinite;
+            animation-delay: calc(-0.5s * var(--i));
+        }
+
+        .balloon:before {
+            content: "";
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            width: 2px;
+            height: 20px;
+            background-color: #333;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="book">
+        <div class="book-inner">
+            <!-- Front page -->
+            <div class="page page-front">
+                <h1>Happy Birthday, <span id="name"></span>!</h1>
+                <div class="balloons">
+                    <div class="balloon" style="background-color: #ff6f61;" style="--i: 1;"></div>
+                    <div class="balloon" style="background-color: #ffb347;" style="--i: 2;"></div>
+                    <div class="balloon" style="background-color: #1e90ff;" style="--i: 3;"></div>
+                </div>
+                <button class="flip-button" onclick="flipBook()">Open Your Wish</button>
+            </div>
+            <!-- Back page -->
+            <div class="page page-back">
+                <h1>Special Wish</h1>
+                <p class="paragraph">Dear <span id="name-back"></span>,</p>
+                <p class="paragraph">
+                    Wishing you the happiest birthday, filled with joy, laughter, and warmth. 
+                    I’m truly sorry for any mistakes I’ve made or any way I’ve upset you this year. 
+                    You deserve nothing but love and happiness, and I hope we can continue to grow together.
+                </p>
+                <p class="paragraph">Enjoy your day to the fullest! ❤️</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set recipient's name
+        const recipientName = "Ananya";  // Name set to Ananya
+
+        document.getElementById('name').textContent = recipientName;
+        document.getElementById('name-back').textContent = recipientName;
+
+        // Flip the book pages
+        const book = document.querySelector('.book');
+
+        function flipBook() {
+            book.classList.toggle('is-flipped');
+        }
+    </script>
+
+</body>
+</html>
+
